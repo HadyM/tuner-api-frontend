@@ -1,5 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import axios from "axios";
+import { apiURL } from "./util/apiURL";
+
+import Home from "./Pages/Home";
+import Error from "./Pages/Error";
+
+import NavBar from "./Components/NavBar";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 
 function App() {
   return (
