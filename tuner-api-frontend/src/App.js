@@ -5,28 +5,79 @@ import { apiURL } from "./util/apiURL";
 
 import Home from "./Pages/Home";
 import Error from "./Pages/Error";
+import Index from "./Pages/Index";
 
 import NavBar from "./Components/NavBar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
+const API_BASE = apiURL();
+
 function App() {
+  const [songs, setSongs] = useState([]);
+
+  // const addSong = (newSong) => {
+  //   axios
+  //     .post(`${API_BASE}/songs`, newSong)
+  //     .then((response) => {
+  //       setSongs([...songs, newSong]);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
+
+  // const deleteSong = (index) => {
+  //   axios.delete(`${API_BASE}/songs/${index}`).then(
+  //     (response) => {
+  //       const updateArray = [...songs];
+  //       updateArray.splice(index, 1);
+  //       setSongs(updateArray);
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //     },
+  //   );
+  // };
+
+  // const updateSong = (updatedSong, index) => {
+  //   axios.put(`${API_BASE}/songs/${index}`, updatedSong).then(
+  //     (response) => {
+  //       const updateArray = [...songs];
+  //       updateArray[index] = updatedSong;
+  //       setSongs(updateArray);
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //     },
+  //   );
+  // };
+
+  useEffect(() => {
+    axios.get(`${API_BASE}/songs`).then((response) => {
+      const { data } = response;
+      setSongs(data);
+    });
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <NavBar />
+        <main>
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route exact path="/songs">
+              <Index songs={songs} />
+            </Route>
+            <Route path="*">
+              <Error />
+            </Route>
+          </Switch>
+        </main>
+      </Router>
     </div>
   );
 }
