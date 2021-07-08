@@ -1,9 +1,12 @@
-import React from 'react'
+import Songs from "../Components/Songs";
 
-export default function Index() {
-    return (
-        <div>
-            
-        </div>
-    )
+function Index({ songs }) {
+  return (
+    <div className="Index">
+      <h1>Tuner Playlist</h1>
+      <Songs songs={songs} />
+    </div>
+  );
 }
+
+export default Index;

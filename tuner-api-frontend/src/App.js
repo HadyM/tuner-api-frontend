@@ -6,6 +6,7 @@ import { apiURL } from "./util/apiURL";
 import Home from "./Pages/Home";
 import Error from "./Pages/Error";
 import Index from "./Pages/Index";
+import Show from "./Pages/Show";
 
 import NavBar from "./Components/NavBar";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -27,18 +28,18 @@ function App() {
   //     });
   // };
 
-  // const deleteSong = (index) => {
-  //   axios.delete(`${API_BASE}/songs/${index}`).then(
-  //     (response) => {
-  //       const updateArray = [...songs];
-  //       updateArray.splice(index, 1);
-  //       setSongs(updateArray);
-  //     },
-  //     (error) => {
-  //       console.log(error);
-  //     },
-  //   );
-  // };
+  const deleteSong = (index) => {
+    axios.delete(`${API_BASE}/songs/${index}`).then(
+      (response) => {
+        const updateArray = [...songs];
+        updateArray.splice(index, 1);
+        setSongs(updateArray);
+      },
+      (error) => {
+        console.log(error);
+      },
+    );
+  };
 
   // const updateSong = (updatedSong, index) => {
   //   axios.put(`${API_BASE}/songs/${index}`, updatedSong).then(
@@ -71,6 +72,9 @@ function App() {
             </Route>
             <Route exact path="/songs">
               <Index songs={songs} />
+            </Route>
+            <Route path="/songs/:index">
+              <Show songs={songs} deleteSong={deleteSong} />
             </Route>
             <Route path="*">
               <Error />
