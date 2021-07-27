@@ -6,10 +6,10 @@ import { apiURL } from "../util/apiURL";
 const API_BASE = apiURL();
 
 function SongDetails(props) {
-  const { deleteSong, index } = props;
+  const { deleteSong } = props;
   const [song, setSong] = useState([]);
 
-  // let { index } = useParams();
+  let { index } = useParams();
   let history = useHistory();
 
   useEffect(() => {
@@ -25,7 +25,7 @@ function SongDetails(props) {
   }, [index, history]);
 
   const handleDelete = () => {
-    deleteSong(index);
+    deleteSong(song.id);
     history.push("/songs");
   };
 

@@ -78,7 +78,7 @@ function App() {
             <Route path="/songs/new">
               <New addSong={addSong} />
             </Route>
-            <Route path="/songs/:index">
+            <Route exact path="/songs/:index">
               <Show songs={songs} deleteSong={deleteSong} />
             </Route>
             <Route path="/songs/:index/edit">
