@@ -6,19 +6,22 @@ import { apiURL } from "../util/apiURL";
 const API_BASE = apiURL();
 
 function SongDetails(props) {
-  const { deleteSong } = props;
+  const { deleteSong, index } = props;
   const [song, setSong] = useState([]);
 
-  let { index } = useParams();
+  // let { index } = useParams();
   let history = useHistory();
 
   useEffect(() => {
-    axios.get(`${API_BASE}/songs/${index}`).then((response) => {
-      const { data } = response;
-      setSong(data.index).catch((e) => {
+    axios
+      .get(`${API_BASE}/songs/${index}`)
+      .then((response) => {
+        const { data } = response;
+        setSong(data);
+      })
+      .catch((e) => {
         history.push("/not-found");
       });
-    });
   }, [index, history]);
 
   const handleDelete = () => {
@@ -32,24 +35,21 @@ function SongDetails(props) {
         <h3>
           {song.is_favorite ? <span>⭐️</span> : null} {song.name}
         </h3>
-        <h6>{song.artist}</h6>
-        <p>{song.album}</p>
-        <p>{song.time}</p>
+        <h4>{song.artist}</h4>
+        <h4>{song.album}</h4>
+        <h4>{song.time}</h4>
         <div className="showNavigation">
           <div>
-            {" "}
             <Link to={`/songs`}>
               <button>Back</button>
             </Link>
           </div>
           <div>
-            {" "}
             <Link to={`/songs/${index}/edit`}>
               <button>Edit</button>
             </Link>
           </div>
           <div>
-            {" "}
             <button onClick={handleDelete}>Delete</button>
           </div>
         </div>

@@ -17,7 +17,7 @@ function Songs({ songs }) {
           </thead>
           <tbody>
             {songs.map((song, index) => {
-              return <Song key={index} song={song} id={index} />;
+              return <Song key={index} song={song} id={song.id} />;
             })}
           </tbody>
         </Table>
